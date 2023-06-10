@@ -18,7 +18,13 @@ const UserSchema= new mongoose.Schema({
       roleId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Role',
+            required:true
       },
+        role: {
+            type: String,
+            required: true,
+        },
+
       avatarUrl: String,
 },
     {

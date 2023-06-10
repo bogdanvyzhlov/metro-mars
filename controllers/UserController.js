@@ -1,16 +1,16 @@
-import {validationResult} from "express-validator";
+
 import bcrypt from "bcrypt";
 import UserModel from "../models/User.js";
 import jwt from "jsonwebtoken";
 import RoleModel from "../models/Role.js";
 
+
+
+
 export  const register = async (req, res) =>{
 
     try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json(errors.array());
-        }
+
         const password = req.body.password;
         const salt = await bcrypt.genSalt(10);
         const role = await RoleModel.findOne({name: 'passenger'});
@@ -21,11 +21,15 @@ export  const register = async (req, res) =>{
             avatarUrl: req.body.avatarUrl,
             passwordHash: hash,
             roleId: role._id,
+            role: role.name
         });
 
         const user = await doc.save();
         const token = jwt.sign({
                 _id: user._id,
+                fullName: user.fullName,
+                email: user.email,
+                role: user.role
             }, 'secret123',
             {
                 expiresIn: '30d',
@@ -46,6 +50,7 @@ export  const register = async (req, res) =>{
 
 export  const login= async (req,res)=>{
     try{
+
         const user= await UserModel.findOne({email: req.body.email});
         if(!user){
             return res.status(404).json({
@@ -60,6 +65,9 @@ export  const login= async (req,res)=>{
         }
         const token = jwt.sign({
                 _id: user._id,
+                fullName: user.fullName,
+                email: user.email,
+                role: user.role
             }, 'secret123',
             {
                 expiresIn: '30d',
@@ -69,6 +77,7 @@ export  const login= async (req,res)=>{
         res.json({
             ...userData,
             token,
+
         });
 
 
@@ -77,7 +86,7 @@ export  const login= async (req,res)=>{
         res.status(500).json({
             message: 'Failed to log in'
         });
-    }
+    };
 
 
 
@@ -104,3 +113,5 @@ export const getMe= async (req, res)=>{
         });
     }
 };
+
+
