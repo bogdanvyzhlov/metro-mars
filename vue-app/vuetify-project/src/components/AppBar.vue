@@ -6,7 +6,7 @@
       <v-spacer></v-spacer>
 
       <v-btn variant="flat" :to="{ name: 'bye-ticket' }" class="mr-2">Buy Ticket</v-btn>
-      <v-btn variant="flat" :to="{ name: '' }" class="mr-2">Metro Map</v-btn>
+      <v-btn variant="flat" :to="{ name: 'station' }" class="mr-2">Metro Map</v-btn>
       <v-btn variant="flat" :to="{ name: '' }" >Time Table</v-btn>
       <v-spacer></v-spacer>
       <LoggedUser></LoggedUser>

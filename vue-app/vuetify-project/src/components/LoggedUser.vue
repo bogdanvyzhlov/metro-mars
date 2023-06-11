@@ -12,10 +12,16 @@
           <v-list-item-title>Logged in as <strong>{{ authStore.user.fullName }}</strong></v-list-item-title>
         </v-list-item>
         <v-list-item>
-          <router-link :to="{ name: 'my-tickets' }">My tickets</router-link>
+          <v-btn variant="plain" :to="{name:'users'}">Update users</v-btn>
         </v-list-item>
-        <router-link :to="{ name: 'about-me' }">About me</router-link>
-        <v-divider></v-divider>
+        <v-list-item>
+
+          <v-btn variant="plain" :to="{name:'my-tickets'}">My tickets</v-btn>
+        </v-list-item>
+        <v-list-item>
+
+          <v-btn variant="plain" :to="{name:'about-me'}">About me</v-btn>
+          </v-list-item>
 
         <v-list-item @click="handleLogout">
           <v-list-item-title>
@@ -35,6 +41,8 @@ import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
 const router = useRouter();
+
+
 
 const handleLogout = () => {
   authStore.logout();

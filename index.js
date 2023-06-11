@@ -6,7 +6,7 @@ import multer from 'multer';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
-import {loginValidations, registerValidations} from './validations/validations.js';
+import {loginValidations, registerValidations, updateValidations} from './validations/validations.js';
 
 import  checkAuth from './utils/checkAuth.js';
 
@@ -15,6 +15,7 @@ import * as UserController from './controllers/UserController.js';
 import * as RoleController from './controllers/RoleController.js';
 
 import * as TicketController from './controllers/TicketController.js';
+
 import handleValidationsErrors from "./utils/handleValidationsErrors.js";
 
 
@@ -143,7 +144,7 @@ RoleController.createRoles().then(()=>{
      *       200:
      *         description: User profile
      */
-    app.get('/auth/me', checkAuth('passenger'), UserController.getMe);
+    app.get('/auth/me', checkAuth('passenger','worker','admin', 'technician'), UserController.getMe);
     /**
      * @swagger
      * /tickets:
@@ -197,9 +198,19 @@ RoleController.createRoles().then(()=>{
      *       200:
      *         description: Created ticket
      */
-    app.post('/tickets',checkAuth('passenger','worker'), TicketController.create);
+    app.post('/tickets',checkAuth(['passenger','worker']), TicketController.create);
 
 
+    app.get('/auth/users', checkAuth('admin'), UserController.getAllUsers);
+
+
+
+
+    app.post('/auth/users/:id', checkAuth('admin'), updateValidations, handleValidationsErrors,UserController.updateUser);
+
+    app.delete('/auth/users/:id', checkAuth('admin'),  UserController.deleteUser);
+
+    app.get('/auth/users/:id', checkAuth('admin'), UserController.getUserById);
 
     app.listen(4444,(err)=>{
         if(err){

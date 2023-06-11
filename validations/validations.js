@@ -17,5 +17,10 @@ export const registerValidations=[
 ];
 
 
+export const updateValidations=[
+  body('email', 'It is not email').isEmail(),
 
+  body('fullName', 'Please write a full name').isLength({min:3}),
+
+];
 

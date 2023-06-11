@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>About me</h2>
+    <h2 class="text-center">About me</h2>
     <v-card v-if="user" class="pa-4">
       <v-card-text>
         <v-row>

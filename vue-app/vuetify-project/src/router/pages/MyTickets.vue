@@ -18,7 +18,7 @@
     </tbody>
   </v-table>
   <div v-if="tickets.length === 0">
-    <p>Билеты не найдены.</p>
+    <p>Not found</p>
   </div>
 </template>
 
@@ -35,11 +35,11 @@ export default defineComponent({
     const tickets = ref<Ticket[]>(ticketStore.tickets);
     const loading = ref(false);
 
-    const totalItems = ref(0); // Общее количество элементов
+    const totalItems = ref(0);
 
 
     const formatDate = (date: string) => {
-      // Реализуйте свою логику форматирования даты здесь
+
       return new Date(date).toLocaleDateString();
     };
 
