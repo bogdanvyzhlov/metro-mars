@@ -88,7 +88,7 @@ export const updateUser = async (req,res)=>{
         console.error('Error updating user:', error);
         res.status(500).json({ message: 'Failed to update user' });
     }
-}
+};
 
 export  const login= async (req,res)=>{
     try{

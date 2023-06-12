@@ -60,9 +60,7 @@ const expirationDate = (selectedExpires: string): Date => {
 };
 </script>
 
-<style>
-
-
+<style scoped>
 .purchase-ticket {
   max-width: 400px;
   margin: 0 auto;
@@ -95,7 +93,7 @@ const expirationDate = (selectedExpires: string): Date => {
 }
 
 .buy-button {
-  background-color: #4caf50;
+  background-color: #4c5caf;
   color: #fff;
   border-radius: 5px;
   font-size: 16px;
@@ -103,7 +101,8 @@ const expirationDate = (selectedExpires: string): Date => {
 }
 
 .buy-button:hover {
-  background-color: #45a049;
+  background-color: #456ea0;
 }
 </style>
+
 

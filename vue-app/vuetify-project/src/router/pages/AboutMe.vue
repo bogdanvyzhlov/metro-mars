@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-about-container">
     <h2 class="text-center">About me</h2>
     <v-card v-if="user" class="pa-4">
       <v-card-text>
@@ -33,6 +33,11 @@ const user = computed(() => authStore.user);
 </script>
 
 <style>
-/* Дополнительные стили Vuetify 3 */
+.my-about-container{
+  width: 100%;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
 </style>
 

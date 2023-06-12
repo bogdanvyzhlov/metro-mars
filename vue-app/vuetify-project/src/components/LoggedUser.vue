@@ -22,6 +22,10 @@
 
           <v-btn variant="plain" :to="{name:'about-me'}">About me</v-btn>
           </v-list-item>
+        <v-list-item>
+
+          <v-btn variant="plain" :to="{name:'my-stations'}">My Stations</v-btn>
+        </v-list-item>
 
         <v-list-item @click="handleLogout">
           <v-list-item-title>

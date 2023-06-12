@@ -16,6 +16,8 @@ import * as RoleController from './controllers/RoleController.js';
 
 import * as TicketController from './controllers/TicketController.js';
 
+import * as StationController from './controllers/StationController.js'
+
 import handleValidationsErrors from "./utils/handleValidationsErrors.js";
 
 
@@ -58,7 +60,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
-RoleController.createRoles().then(()=>{
+Promise.all([
+    RoleController.createRoles(),
+    StationController.createStations()
+]).then(()=>{
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
     app.get('/', (req, res)=>{
@@ -80,7 +85,7 @@ RoleController.createRoles().then(()=>{
      *         description: URL of the uploaded image
      */
     app.use('/uploads', express.static('uploads'));
-    app.post('/upload', checkAuth('passenger'), upload.single('image'), (req,res)=>{
+    app.post('/upload', checkAuth(['passenger']), upload.single('image'), (req,res)=>{
         res.json({
             url: `/uploads/${req.file.originalname}`,
         });
@@ -144,7 +149,7 @@ RoleController.createRoles().then(()=>{
      *       200:
      *         description: User profile
      */
-    app.get('/auth/me', checkAuth('passenger','worker','admin', 'technician'), UserController.getMe);
+    app.get('/auth/me', checkAuth(['passenger','worker','admin', 'technician']), UserController.getMe);
     /**
      * @swagger
      * /tickets:
@@ -157,7 +162,7 @@ RoleController.createRoles().then(()=>{
      *       200:
      *         description: List of tickets
      */
-    app.get('/tickets', checkAuth('passenger'), TicketController.getAll);
+    app.get('/tickets', checkAuth(['passenger','admin']), TicketController.getAll);
     /**
      * @swagger
      * /tickets/{id}:
@@ -176,7 +181,7 @@ RoleController.createRoles().then(()=>{
      *       200:
      *         description: Ticket details
      */
-    app.get('/tickets/:id', checkAuth('passenger'), TicketController.getOne);
+    app.get('/tickets/:id', checkAuth(['passenger']), TicketController.getOne);
     /**
      * @swagger
      * /tickets:
@@ -201,16 +206,22 @@ RoleController.createRoles().then(()=>{
     app.post('/tickets',checkAuth(['passenger','worker']), TicketController.create);
 
 
-    app.get('/auth/users', checkAuth('admin'), UserController.getAllUsers);
+    app.get('/auth/users', checkAuth(['admin']), UserController.getAllUsers);
 
 
 
 
-    app.post('/auth/users/:id', checkAuth('admin'), updateValidations, handleValidationsErrors,UserController.updateUser);
+    app.post('/auth/users/:id', checkAuth(['admin']), updateValidations, handleValidationsErrors,UserController.updateUser);
 
-    app.delete('/auth/users/:id', checkAuth('admin'),  UserController.deleteUser);
+    app.delete('/auth/users/:id', checkAuth(['admin']),  UserController.deleteUser);
 
-    app.get('/auth/users/:id', checkAuth('admin'), UserController.getUserById);
+    app.get('/auth/users/:id', checkAuth(['admin']), UserController.getUserById);
+
+    app.get('/auth/stations', checkAuth(['admin','technician','passenger']), StationController.getAll);
+
+    app.post('/auth/stations/:id', checkAuth(['technician','admin']), StationController.updateStation);
+
+    app.get('/auth/stations/:id', checkAuth(['admin','technician']), StationController.getStationById);
 
     app.listen(4444,(err)=>{
         if(err){

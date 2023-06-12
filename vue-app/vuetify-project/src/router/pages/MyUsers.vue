@@ -2,24 +2,23 @@
   <div class="my-users-container">
     <h2>My Users</h2>
 
-    <table>
+    <table class="users-table">
       <thead>
       <tr>
         <th>Full Name</th>
         <th>Email</th>
         <th>Role</th>
         <th>Action</th>
-
       </tr>
       </thead>
-      <tbody class="text-center" >
+      <tbody class="text-center">
       <tr v-for="user in users" :key="user._id">
         <td>{{ user.fullName }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.role }}</td>
         <td>
-          <button @click="updateUser(user._id)">Edit</button>
-          <button @click="deleteUser(user._id)">Delete</button>
+          <button class="edit-button " @click="updateUser(user._id)">Edit</button>
+          <button class="delete-button" @click="deleteUser(user._id)">Delete</button>
         </td>
       </tr>
       </tbody>
@@ -33,6 +32,9 @@ import { useAuthStore } from '@/stores/auth';
 
 import {User} from "@/model/User";
 import router from "@/router";
+
+
+
 
 export default defineComponent({
   name: 'MyUsers',
@@ -64,6 +66,7 @@ export default defineComponent({
     const updateUser = (userId: string): void => {
       router.push({name:'user-update', params:{ userId }});
       console.log('Update user:', userId);
+
     };
 
     fetchUsers();
@@ -79,25 +82,61 @@ export default defineComponent({
 
 
 
+
+
 <style scoped>
-table {
+.my-users-container {
+
+  width: 100%;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.users-table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
 }
 
 th,
 td {
-  padding: 8px;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
 }
-.my-users-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
+
+
+
+.text-center {
+  text-align: center;
 }
-button {
-  margin-right: 4px;
+
+.edit-button,
+.delete-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: auto;
+}
+
+.edit-button {
+  background-color: #2196F3;
+  color: white;
+}
+
+.delete-button {
+  background-color: #FF5252;
+  color: white;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  opacity: 0.8;
 }
 </style>

@@ -1,82 +1,108 @@
 <template>
   <div class="homepage">
-    <div class="intro">
-      <h1>Explore the Universe with Our Planet App</h1>
-      <p>
-        Welcome to our planet application, where you can discover everything you need
-        to know about the planets in our solar system. From their inhabitants
-        to their unique features and characteristics, our guide has
-        everything you need to explore the wonders of the universe.
-      </p>
-      <router-link v-if="!isAuthenticated" to="/login" class="btn" @mousemove="addConfetti()">Login</router-link>
-      <p>
-      <router-link v-if="!isAuthenticated" to="/register" class="btn" @mousemove="addConfetti()">Register</router-link>
-      </p>
+    <div class="form-container">
+      <v-form v-model="valid">
+        <v-container>
+          <v-row class="mb-4">
+            <v-col cols="12" md="4">
+              <v-select
+                v-model="fromStation"
+                :items="stations.map(station => station.name)"
+                label="From Station"
+                required
+              ></v-select>
+            </v-col>
+
+            <v-col cols="12" md="4">
+              <v-select
+                v-model="toStation"
+                :items="stations.map(station => station.name)"
+                label="To Station"
+                required
+              ></v-select>
+            </v-col>
+
+            <v-col cols="12" md="4">
+              <v-btn @click="calculateShortestPath" color="primary" class="white--text narrow-button">
+                Find Path
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
+
+      <div v-if="path" class="path-container text-center">
+        <h3 class="path-title text-center">Shortest Path:</h3>
+        <ul class="path-list text-center">
+          <li class="path-item text-center"> {{ fromStation }}</li>
+          <li v-for="station in path" :key="station.name" class="path-item">{{ station.name }}</li>
+        </ul>
+      </div>
     </div>
   </div>
-
 </template>
 
 <script lang="ts" setup>
-import JSConfetti from 'js-confetti'
-import { ref,computed } from "vue"
+import { ref, onMounted } from "vue";
+import { useStationStore } from '@/stores/station';
+import { Station } from "@/model/Station";
 
-const confettiRunning = ref(false)
+const stationStore = useStationStore();
 
-const jsConfetti = new JSConfetti()
-import { useAuthStore } from '@/stores/auth';
+const fromStation = ref('');
+const toStation = ref('');
+const path = ref<Station[] | null>(null);
+const valid = ref(false);
 
-const authStore = useAuthStore();
-const isAuthenticated = computed(() => !!authStore.user);
+const stations = ref<Station[]>(stationStore.stations);
 
-const addConfetti = () => {
-  if (confettiRunning.value) {
-    return
-  }
-
-  confettiRunning.value = true
-
-  jsConfetti.addConfetti({
-    emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
-  }).then(() => {
-    confettiRunning.value = false
-  })
+async function calculateShortestPath() {
+  const result = await stationStore.calculateShortestPath(fromStation.value, toStation.value);
+  path.value = result ? result.slice() : null;
 }
+
+onMounted(() => {
+  stationStore.fetchStations().then(() => {
+    stations.value = stationStore.stations;
+  });
+});
 </script>
+
 
 <style scoped>
 .homepage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container {
+  width: 100%;
   padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+.path-item{
+  list-style-type: none;
+}
+.v-select {
+  width: 100%;
 }
 
-.intro {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.intro h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-.intro p {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.btn {
-  display: inline-block;
-  padding: 15px 25px;
-  font-size: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 5px;
-  border: none;
-  color: #fff;
-  background-color: #007bff;
-}
-
-.btn:hover {
-  background-color: #0069d9;
+.narrow-button {
+  width: 100%;
+  padding-top: 22px;
+  padding-bottom: 30px;
 }
 </style>
+
+
+
+
+
+
+
+
+
+

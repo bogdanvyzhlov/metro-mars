@@ -8,6 +8,12 @@
           <v-text-field v-model="state.password" label="Password" type="password" :rules="passwordRules" outlined></v-text-field>
           <div class="text-center">
           <v-btn type="submit" color="primary" class="login-button">Login</v-btn>
+
+          </div>
+          <div class="text-h7  text-center "  >Or</div>
+          <div class="text-center">
+            <v-btn type="submit" color="primary" class="login-button" :to="{name:'register'}">Click to register</v-btn>
+
           </div>
           <v-snackbar v-model="state.snackbar" :timeout="5000" :color="state.error ? 'error' : 'success'">
             {{ state.error ? 'Error: ' + state.error : 'Login successful' }}
@@ -70,5 +76,6 @@ const login = async () => {
 
 .login-button {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 </style>
