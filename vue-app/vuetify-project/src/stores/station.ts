@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import { Station } from '@/model/Station';
 import { axiosInstance } from '@/code/api';
 
@@ -117,6 +117,8 @@ export const useStationStore = defineStore('station', () => {
 
     return path;
   }
+
+  onMounted(fetchStations);
 
   return { stations, fetchStations, updateStation, getStation, calculateShortestPath };
 });

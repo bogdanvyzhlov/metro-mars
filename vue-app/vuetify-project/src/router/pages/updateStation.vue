@@ -2,7 +2,7 @@
   <v-container fluid class="edit-station-container">
     <v-row justify="center" align="center" class="edit-station-row">
       <v-col cols="12" sm="8" md="6">
-        <div class="text-h5 mb-8 text-center">Update Station: {{stationName}} </div>
+        <div class="text-h5 mb-8 text-center">Update: {{stationName}} </div>
         <v-form @submit.prevent="updateStation" class="edit-station-form">
 
           <v-text-field v-model="state.aboutWork" label="About work"  outlined></v-text-field>
@@ -56,9 +56,13 @@ onMounted(async () => {
 
 <style scoped>
 .edit-station-container {
-  height: 100vh;
   display: flex;
   align-items: center;
+  width: 700px;
+  margin-top: 10%;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
 }
 
 .edit-station-row {
@@ -66,7 +70,7 @@ onMounted(async () => {
 }
 
 .edit-station-form {
-  max-width: 400px;
+  max-width: 500px;
   margin: 0 auto;
 }
 

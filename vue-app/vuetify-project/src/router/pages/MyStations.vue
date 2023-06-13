@@ -86,6 +86,7 @@ td {
 }
 
 .my-stations-container {
+  margin-top: 5%;
   width: 100%;
   padding: 20px;
   background-color: #f5f5f5;

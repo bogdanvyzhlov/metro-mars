@@ -1,8 +1,17 @@
 <template>
+  <div class="intro">
+    <h1 style="font-family: 'Hind Madurai', sans-serif; color:floralwhite" >The system of fast transportation is now on Mars!</h1>
+    <p style="font-family: 'Hind Madurai', sans-serif; color: floralwhite">
+      Welcome to our Mars Metro app where you can plot the shortest route to your destination.
+    </p>
+
+  </div>
   <div class="homepage">
     <div class="form-container">
       <v-form v-model="valid">
+        <h3 class="text-center">Select Stations and click a button</h3>
         <v-container>
+
           <v-row class="mb-4">
             <v-col cols="12" md="4">
               <v-select
@@ -74,7 +83,7 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 50vh;
 }
 
 .form-container {
@@ -86,14 +95,28 @@ onMounted(() => {
 .path-item{
   list-style-type: none;
 }
-.v-select {
-  width: 100%;
-}
+
 
 .narrow-button {
   width: 100%;
   padding-top: 22px;
   padding-bottom: 30px;
+}
+
+
+.intro {
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.intro h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.intro p {
+  font-size: 24px;
+  margin-bottom: 0px;
 }
 </style>
 

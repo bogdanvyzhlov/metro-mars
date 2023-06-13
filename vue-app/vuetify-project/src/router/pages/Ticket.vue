@@ -2,13 +2,15 @@
   <v-container class="purchase-ticket">
     <h2 class="title">Buy a ticket</h2>
     <v-form @submit.prevent="buyTicket" class="ticket-form">
-      <v-radio-group v-model="state.selectedExpires" row>
-        <v-radio label="One day" value="1 day"></v-radio>
-        <v-radio label="One week" value="1 week"></v-radio>
-        <v-radio label="One month" value="1 month"></v-radio>
+      <v-radio-group v-model="state.selectedExpires" row class="v-radio-group">
+        <v-radio label="One day" value="1 day" class="v-radio" ></v-radio>
+        <v-radio label="One week" value="1 week" class="v-radio"></v-radio>
+        <v-radio label="One month" value="1 month" class="v-radio"></v-radio>
       </v-radio-group>
 
-      <v-btn type="submit" class="buy-button">Buy</v-btn>
+      <div class="text-center">
+        <v-btn type="submit" class="buy-button">Buy</v-btn>
+      </div>
     </v-form>
   </v-container>
 </template>
@@ -30,7 +32,7 @@ const state = reactive({
 
 const buyTicket = async () => {
   try {
-    if (authStore.user) {
+    if (authStore.user && state.selectedExpires) {
       await ticketStore.addTicket(expirationDate(state.selectedExpires).toLocaleDateString(), authStore.user._id);
 
       await router.push({ name: 'my-tickets' });
@@ -63,7 +65,7 @@ const expirationDate = (selectedExpires: string): Date => {
 <style scoped>
 .purchase-ticket {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -84,12 +86,17 @@ const expirationDate = (selectedExpires: string): Date => {
 
 .v-radio-group {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  justify-content: center;
 }
 
 .v-radio {
   margin-right: 10px;
+}
+
+.text-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .buy-button {
@@ -104,5 +111,6 @@ const expirationDate = (selectedExpires: string): Date => {
   background-color: #456ea0;
 }
 </style>
+
 
 

@@ -16,7 +16,9 @@ import * as RoleController from './controllers/RoleController.js';
 
 import * as TicketController from './controllers/TicketController.js';
 
-import * as StationController from './controllers/StationController.js'
+import * as StationController from './controllers/StationController.js';
+
+import * as TrainController from './controllers/TrainController.js';
 
 import handleValidationsErrors from "./utils/handleValidationsErrors.js";
 
@@ -62,7 +64,8 @@ const upload = multer({storage});
 
 Promise.all([
     RoleController.createRoles(),
-    StationController.createStations()
+    StationController.createStations(),
+    TrainController.createTrains()
 ]).then(()=>{
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
@@ -217,11 +220,13 @@ Promise.all([
 
     app.get('/auth/users/:id', checkAuth(['admin']), UserController.getUserById);
 
-    app.get('/auth/stations', checkAuth(['admin','technician','passenger']), StationController.getAll);
+    app.get('/auth/stations', StationController.getAll);
 
-    app.post('/auth/stations/:id', checkAuth(['technician','admin']), StationController.updateStation);
+    app.post('/auth/stations/:id', checkAuth(['technician']), StationController.updateStation);
 
     app.get('/auth/stations/:id', checkAuth(['admin','technician']), StationController.getStationById);
+
+    app.get('/trains', TrainController.getAllTrains);
 
     app.listen(4444,(err)=>{
         if(err){

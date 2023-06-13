@@ -46,7 +46,7 @@ const usernameRules = computed(() => [
 const passwordRules = computed(() => [
   (v: string) => !!v || 'Password is required',
   // doesn't make sense to check password length during login. it is just an example
-  (v: string) => v.length >= 6 || 'Password must be at least 6 characters',
+  (v: string) => v.length >= 5 || 'Password must be at least 5 characters',
 ]);
 
 const login = async () => {
@@ -63,14 +63,18 @@ const login = async () => {
 </script>
 <style scoped>
 .login-container {
-  height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  width: 600px;
+  margin-top: 10%;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
 }
 
 .login-form {
   max-width: 400px;
+
   margin: 0 auto;
 }
 

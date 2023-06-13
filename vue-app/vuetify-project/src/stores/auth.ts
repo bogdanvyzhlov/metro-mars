@@ -3,14 +3,14 @@ import { User } from "@/model/User";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import {onMounted, ref} from "vue";
 
 
 const TOKEN_COOKIE_NAME = "auth_token";
 
 export const useAuthStore = defineStore("auth", () => {
   const user = ref<User>();
-  const users=ref<User[]>([]);
+  const users =ref<User[]>([]);
 
 
 
@@ -125,6 +125,10 @@ export const useAuthStore = defineStore("auth", () => {
     user.value = undefined;
     setBearerAuthToken(undefined);
   }
+  onMounted(() => {
+    reloadUser();
+    fetchUsers();
+  });
 
-  return { login, logout, reloadUser, user,registerUser,fetchUsers,users, updateUser ,deleteUser, getUser};
+  return { users, login, logout, reloadUser, user,registerUser,fetchUsers, updateUser ,deleteUser, getUser};
 });

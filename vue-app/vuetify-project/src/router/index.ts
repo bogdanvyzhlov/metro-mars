@@ -7,9 +7,9 @@ import AboutMe from "@/router/pages/AboutMe.vue"
 import MyUsers from "@/router/pages/MyUsers.vue"
 import updateUser from "@/router/pages/updateUser.vue"
 import MyStations from '@/router/pages/MyStations.vue'
-import MetroMap from '@/router/pages/MetroMap.vue'
+import TimeTable from '@/router/pages/TimeTable.vue'
 import updateStation from '@/router/pages/updateStation.vue'
-
+import Statistics from '@/router/pages/Statistics.vue'
 
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
@@ -18,15 +18,16 @@ import { useAuthStore } from "@/stores/auth";
 const routes: RouteRecordRaw[] = [
   { path: "/", component: Homepage, name: "homepage", meta:{requiresAuth: false},},
   { path: "/login", component: Login, name: "login", meta: { requiresAuth : false }, },
-  { path: "/map", component: MetroMap, name: "map", meta: { requiresAuth : false }, },
+  { path: "/timetable", component: TimeTable, name: "timetable", meta: { requiresAuth : false }, },
   { path: "/register", component: Register, name: "register", meta: { requiresAuth : false }, },
-  { path: "/bye-ticket", component: Ticket, name: "bye-ticket", meta: { requiresAuth : true , requiresRole:['passenger','worker','admin']}, },
-  { path: "/my-tickets", component: MyTickets, name: "my-tickets", meta: { requiresAuth : true , requiresRole: ['passenger', 'admin']}, },
+  { path: "/bye-ticket", component: Ticket, name: "bye-ticket", meta: { requiresAuth : true , requiresRole:['passenger','worker']}, },
+  { path: "/my-tickets", component: MyTickets, name: "my-tickets", meta: { requiresAuth : true , requiresRole: ['passenger']}, },
   { path: "/about-me", component: AboutMe, name: "about-me", meta: { requiresAuth : true }, },
   { path: "/users", component: MyUsers, name: "users", meta: { requiresAuth : true ,requiresRole: ['admin']}, },
+  { path: "/statistics", component: Statistics, name: "statistics", meta: { requiresAuth : true ,requiresRole: ['admin']}, },
   { path: "/user-update/:userId", component: updateUser, name: "user-update", meta: { requiresAuth : true ,requiresRole: ['admin']}, },
-  { path: "/my-stations", component: MyStations, name: "my-stations", meta: { requiresAuth : true, requiresRole: ['admin','technician'] }, },
-  { path: "/my-stations/:stationId", component: updateStation, name: "station-update", meta: { requiresAuth : true ,requiresRole: ['admin','technician']}, },
+  { path: "/my-stations", component: MyStations, name: "my-stations", meta: { requiresAuth : true, requiresRole: ['technician'] }, },
+  { path: "/my-stations/:stationId", component: updateStation, name: "station-update", meta: { requiresAuth : true ,requiresRole: ['technician']}, },
 ];
 
 const router = createRouter({

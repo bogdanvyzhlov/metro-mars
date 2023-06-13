@@ -1,13 +1,13 @@
 <template>
   <v-app-bar flat color="primary" dark>
     <v-container class="fill-height d-flex align-center">
-      <v-btn variant="flat" :to="{ name: 'homepage' }" class="mr-3">Home Page</v-btn>
+      <v-btn variant="flat" :to="{ name: 'homepage' }" class="mr-3">Home</v-btn>
 
       <v-spacer></v-spacer>
 
-      <v-btn variant="flat" :to="{ name: 'bye-ticket' }" class="mr-2">Buy Ticket</v-btn>
-      <v-btn variant="flat" :to="{ name: 'map' }" class="mr-2">Metro Map</v-btn>
-      <v-btn variant="flat" :to="{ name: '' }" >Time Table</v-btn>
+      <v-btn v-if="!isAuthenticated || (authStore.user.role==='passenger'|| authStore.user.role==='worker')" variant="flat" :to="{ name: 'bye-ticket' }" class="mr-2">Buy Ticket</v-btn>
+      <v-btn variant="flat" :to="{ name: 'timetable' }" class="mr-2">Time Table</v-btn>
+
       <v-spacer></v-spacer>
 
       <LoggedUser></LoggedUser>

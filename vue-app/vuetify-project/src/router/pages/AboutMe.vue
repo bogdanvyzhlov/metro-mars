@@ -35,6 +35,7 @@ const user = computed(() => authStore.user);
 <style>
 .my-about-container{
   width: 100%;
+  margin-top: 10%;
   padding: 20px;
   background-color: #f5f5f5;
   border-radius: 10px;

@@ -1,4 +1,5 @@
 <template>
+
   <div class="my-users-container">
     <h2>My Users</h2>
 
@@ -24,6 +25,7 @@
       </tbody>
     </table>
   </div>
+
 </template>
 
 <script lang="ts">
@@ -86,7 +88,7 @@ export default defineComponent({
 
 <style scoped>
 .my-users-container {
-
+  margin-top: 10%;
   width: 100%;
   padding: 20px;
   background-color: #f5f5f5;
@@ -139,4 +141,6 @@ td {
 .delete-button:hover {
   opacity: 0.8;
 }
+
+
 </style>

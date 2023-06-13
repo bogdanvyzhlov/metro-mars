@@ -67,9 +67,14 @@ onMounted(async () => {
 
 <style scoped>
 .edit-user-container {
-  height: 100vh;
   display: flex;
   align-items: center;
+  width: 600px;
+  margin-top: 10%;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+
 }
 
 .edit-user-row {
@@ -79,6 +84,7 @@ onMounted(async () => {
 .edit-user-form {
   max-width: 400px;
   margin: 0 auto;
+
 }
 
 .edit-user-button {

@@ -46,7 +46,7 @@ const emailRules = computed(() => [
 
 const passwordRules = computed(() => [
   (v: string) => !!v || 'Password is required',
-  (v: string) => v.length >= 6 || 'Password must be at least 6 characters',
+  (v: string) => v.length >= 5 || 'Password must be at least 5 characters',
 ]);
 
 const register = async () => {
@@ -64,9 +64,14 @@ const register = async () => {
 
 <style scoped>
 .register-container {
-  height: 100vh;
+
   display: flex;
   align-items: center;
+  width: 600px;
+  margin-top: 10%;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
 }
 
 .register-row {
