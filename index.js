@@ -43,7 +43,7 @@ const options = {
             version: '1.0.0',
         },
     },
-    apis: ['/Users/bogdanvyzlov/wa_ss2022_xvyzhlov/index.js'], // Укажите путь к вашему файлу с роутами
+    apis: ['/Users/bogdanvyzlov/wa_ss2022_xvyzhlov/index.js'],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
