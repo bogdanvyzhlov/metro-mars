@@ -5,7 +5,7 @@
 - Implemented backend using the Express.js framework
 - Implemented frontend using the Vue.js  with Vuetify 3
 - Connected database to store and query data using MongoDB
-- Designed dynamic web based on different roles and provided authentication process with proper security 
+- Designed dynamic web based on different roles and provided authentication process with proper security. 
 
 ## How to run this project on your local machine?
 Initial environment:
