@@ -56,7 +56,7 @@ $ node index.js
 ```
 
 ## <p align="center">Screenshot Homepage</p>
-<p align="center"><img src="" alt="ER" width="600"/></p>
+<p align="center"><img src="https://github.com/bogdanvyzhlov/metro-mars/blob/master/uploads/metro.png" alt="ER" width="600"/></p>
 
 ## <p align="center">Use case diagram</p>
 <p align="center"><img src="https://github.com/bogdanvyzhlov/metro-mars/blob/master/uploads/use_case.jpg" alt="ER" width="600"/></p>
